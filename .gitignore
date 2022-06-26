@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+build_ui.sh
+deploy/
+releases/
+local/
+
+
 # Pycharm
 .idea/
 

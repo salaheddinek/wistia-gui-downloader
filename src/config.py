@@ -23,7 +23,7 @@ The 'Replace' button can be used to replace these characters with similar usable
 It also replace space with '_'.
 """
 
-USE_WORKING_DIR = False
+USE_WORKING_DIR = True
 HIDE_TITLE_PROCESS_BUTTON = False
 MAX_VID_NAME_DISPLAY_LENGTH = 70
 

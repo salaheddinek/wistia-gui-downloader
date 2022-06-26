@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-__version__ = '2.1.0'
+__version__ = '2.1.1'
 __author__ = 'Salah Eddine Kabbour'
 __package__ = "wistia_downloader"
 
