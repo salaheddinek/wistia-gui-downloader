@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-__version__ = '2.1.0'
+__version__ = '2.1.3'
 __author__ = 'Salah Eddine Kabbour'
 __package__ = "wistia_downloader"
 
@@ -145,8 +145,6 @@ class MainWindow(Qw.QMainWindow):
         self.setWindowIcon(self.i)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.help_msg = Qw.QMessageBox(self)
-        self.replace_btn_help_msg = Qw.QMessageBox(self)
         self.setWindowTitle("Wistia downloader")
         self.thread = None
         self.downloader = None
@@ -235,8 +233,8 @@ class MainWindow(Qw.QMainWindow):
         self.ui.logs_check_box.clicked.connect(self.update_ui_elements)
         self.ui.check_box_adv_stg.clicked.connect(self.update_ui_elements)
         self.ui.check_box_generate_notes.clicked.connect(self.update_ui_elements)
-        self.ui.btn_help.clicked.connect(self.help_msg.exec)
-        self.ui.btn_replace_info.clicked.connect(self.replace_btn_help_msg.exec)
+        self.ui.btn_help.clicked.connect(self.display_about_page)
+        self.ui.btn_replace_info.clicked.connect(self.display_replace_button_help_message)
         self.ui.btn_process_title.clicked.connect(self.replace_characters_in_title)
         # Qc.QObject.connect(self.ui.btn_process, Qc.SIGNAL("clicked()"), self.process_link())
 
@@ -286,12 +284,32 @@ class MainWindow(Qw.QMainWindow):
         self.i_i = qt_icons.qt_icon_from_text_image(qt_icons.BUTTON_INFO_ICON)
         self.ui.btn_replace_info.setIcon(self.i_i)
 
-        # about us
-        self.help_msg.setWindowTitle("About page")
-        self.help_msg.setText(config.HELP_TEXT)
+    def display_replace_button_help_message(self):
+        self.window_message(config.REPLACE_BTN_HELP_TEXT, "Replace name button info")
 
-        self.replace_btn_help_msg.setWindowTitle("Replace name button info")
-        self.replace_btn_help_msg.setText(config.REPLACE_BTN_HELP_TEXT)
+    def display_about_page(self):
+        text = f'<div style="text-align:center"><h1>{__package__.capitalize()}</h1><small>v{__version__}</small></div>'
+        text += config.HELP_TEXT
+        self.window_message(text, "About page")
+
+    def window_message(self, msg, title="Info", w=800, h=500):
+        txt = msg.replace("<h6>", "&lt;h6&gt;")
+        txt = txt.replace("</h6>", "&lt;/h6&gt;")
+        txt = txt.replace("\n", "<br/>")
+
+        msg_box = Qw.QMessageBox(self)
+        msg_box.setPalette(self.palette())
+        msg_box.setFont(self.font())
+        msg_box.setWindowTitle(title)
+        msg_box.setText(txt)
+        msg_box.show()
+
+        btn = msg_box.findChild(Qw.QPushButton)
+        btn.setFont(self.font())
+        btn_color = btn.palette().color(Qg.QPalette.Button).name()
+        btn.setStyleSheet(styling.generate_button_stylesheet(btn_color))
+        msg_box.setStyleSheet(f"QLabel {{min-width: {w}px; min-height: {h}px;}}")
+        msg_box.exec()
 
     @Qc.Slot()
     def log(self, msg, log_lvl=logging.INFO, time=5000):

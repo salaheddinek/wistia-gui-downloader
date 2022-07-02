@@ -10,20 +10,24 @@ Follow these steps:\n
 1. Right click on video.\n
 2. Click 'copy link and thumbnail'.\n
 3. Past it to link entry.\n
-4. Click on PROCESS and wait for video to download.
+4. Click on <b>PROCESS</b> and wait for video to download.
 """
 
 REPLACE_BTN_HELP_TEXT = """
-Depending on the operating system, these characters can be forbidden to use for naming files:
+Depending on the operating system, these characters can be 
+forbidden to use for naming files:
 
-  '\"', '\\', '/', ':', '?', '*', '|', '<', '>'
+  '\"', '\\', '/', ':', '?', '*', '|', '&#60;', '&#62;'
   
 So these characters cannot be used in a video name. 
-The 'Replace' button can be used to replace these characters with similar usable characters in the video name entry.
+
+The <b>Replace</b> button can be used to replace these characters 
+with similar usable characters in the video name entry.
+
 It also replace space with '_'.
 """
 
-USE_WORKING_DIR = False
+USE_WORKING_DIR = True
 HIDE_TITLE_PROCESS_BUTTON = False
 MAX_VID_NAME_DISPLAY_LENGTH = 70
 
